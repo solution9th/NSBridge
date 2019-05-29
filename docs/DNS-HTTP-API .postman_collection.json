@@ -1,0 +1,442 @@
+{
+	"info": {
+		"_postman_id": "cf66e2c4-a61a-41bc-ae06-4414f478059a",
+		"name": "DNS ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "查看所有域名",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "dodomain",
+						"type": "text"
+					},
+					{
+						"key": "x-api-TIMESTAMP",
+						"value": "1553569617",
+						"type": "text"
+					},
+					{
+						"key": "x-api-hmac",
+						"value": "D0EC8715CA84A40D12612D4576B418EC",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/domains?start=0&count=19",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"domains"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "0"
+						},
+						{
+							"key": "count",
+							"value": "19"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "创建新的域名",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-api-key",
+						"value": "dodomain",
+						"type": "text"
+					},
+					{
+						"key": "x-api-TIMESTAMP",
+						"value": "1553569617",
+						"type": "text"
+					},
+					{
+						"key": "x-api-hmac",
+						"value": "4FEBE460F58AC85F1DBAF177365EF8C2",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"domain\":\"new.2fa.cc\",\"remark\":\"测试 0.1\"}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/domains",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"domains"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除域名",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"domain\":\"hh.com\",\n\t\"remark\":\"测试\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/domain/8",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"domain",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查看域名是否托管",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-KEY",
+						"value": "cmVjb3Jk2cab9d2edfd19538",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/status",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取支持的 dns 的类型",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/types",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【记录】获取某个域名的所有解析记录",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-KEY",
+						"value": "cmVjb3Jk2cab9d2edfd19539",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/records?start=1&count=2",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"records"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "1"
+						},
+						{
+							"key": "count",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【记录】查看单个记录的详情",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "API-KEY",
+						"value": "cmVjb3Jk2cab9d2edfd19539",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/record/13",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"record",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【记录】添加解析记录",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "API-KEY",
+						"value": "cmVjb3Jk2cab9d2edfd19539",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sub_domain\":\"nihao\",\n\t\"record_type\": \"TXT\",\n\t\"value\":\"_9999_\",\n\t\"line_id\":0,\n\t\"ttl\": 5,\n\t\"unit\":\"min\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/records",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"records"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【记录】开启暂停记录",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "API-KEY",
+						"value": "cmVjb3Jk2cab9d2edfd19539",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"disable\": false\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/record/16",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"record",
+						"16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【记录】删除记录",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "API-KEY",
+						"value": "cmVjb3Jk2cab9d2edfd19539",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/record/15",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"record",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【记录】更新记录",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "API-KEY",
+						"value": "cmVjb3Jk2cab9d2edfd19539",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sub_domain\":\"nihao\",\n\t\"record_type\": \"TXT\",\n\t\"value\":\"_9999_\",\n\t\"line_id\":0,\n\t\"ttl\": 5,\n\t\"unit\":\"min\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/record/19",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"record",
+						"19"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

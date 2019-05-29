@@ -1,0 +1,264 @@
+@import './base.scss';
+
+// 这个公共的样式可以用_命名， 这样打包的时候就不会单独打包了
+// color
+$title-font-color: black;
+$nav-title-font-color: #666;
+
+$button-font-color: white;
+$button-back-color: lightblue;
+
+$text-font-color: #999;
+
+$background-color: lightblue;
+
+
+@mixin flexLayout($justify, $align) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+// snackbar 顶部提示框的样式
+.snackbarStyle {
+    &>div{
+        background-color: #4A90E2;
+    }
+}
+
+// 列表上部的标题和搜索框的样式
+.dnsTitle {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    p {
+        color: #111;
+        // font-weight: 600;
+        font-size: 16px;
+        .navHover {
+            display: inline-block;
+            padding: 0 10px;
+        }
+        .navHover:hover {
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #ececec;
+        }
+    }
+}
+.searchContainer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    .searchInput {
+        width: 304px;
+        height: 34px;
+        box-sizing: border-box;
+        border: 1px solid #ececec;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 6px;
+        margin-right: 16px;
+        input {
+            flex: 1;
+            border: none;
+            padding: 0;
+            margin: 0;
+            outline: none;
+            color: #9b9b9b;
+            font-size: 14px;
+            &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+                color: #9b9b9b;
+                font-size: 14px;
+            }
+            &::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+                color: #9b9b9b;
+                font-size: 14px;
+            }
+            &::-moz-placeholder { /* Mozilla Firefox 19+ */
+                color: #9b9b9b;
+                font-size: 14px;
+            }
+            &::-ms-input-placeholder { /* Internet Explorer 10-11 */
+                color: #9b9b9b;
+                font-size: 14px;
+            }
+        }
+        
+        .searchIcon {
+            width: 28px;
+            height: 28px;
+            color: #9b9b9b;
+            @include flexLayout(center, center)
+        }
+    }
+    .searchSelect {
+        width: 180px;
+        height: 34px;
+        margin-right: 16px;
+        box-sizing: border-box;
+        border: 1px solid #ececec;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 12px;
+        font-size: 14px;
+        color: #9b9b9b;
+    }
+}
+
+
+
+// 表格中操作列的下拉菜单样式
+.dnsSelectMenu {
+    position: relative;
+    div:nth-child(2) {
+        margin-top: 3%;
+        color: #6a6a6a;
+        font-size: 0.875rem;
+        li:focus {
+            background-color: transparent;
+        }
+        li:hover {
+            background-color: #ececec;
+        }
+    }
+}
+
+//  页面右侧公共样式
+
+.dnsRightContainer {
+    flex: 1;
+    box-sizing: border-box;
+    padding: 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .dnsTitle {
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        margin-bottom: 20px;
+    }
+    .dnsSearch {
+        width: 100%;
+        display: flex;
+    }
+    .dnsTable {
+        width: 100%;
+        margin-top: 5px;
+        tbody tr:hover {
+            background-color: #ececec;
+        }
+        th,td {
+            font-size: 12px!important;
+            color: #d2d2d2;
+            border-color: #f3f3f3;
+            padding: 0 0 0 10px;
+            // text-align: center;
+            .dnsTableButton {
+                padding: 0;
+                min-width: 0;
+                span {
+                    color: #d2d2d2;
+                    font-size: 14px;
+                }
+            }
+            .dnsTableButton:hover {
+                background-color: #e1e1e1;
+            }
+        }
+        td {
+            color: #4a4a4a;
+            svg {
+                color: #6a6a6a;
+                width: 20px;
+                height: 20px;
+            }
+        }
+        .tableLineButton {
+            color: #4a90e2;
+            border: none;
+            outline: none;
+            padding: 0;
+            background: transparent;
+            margin-left: 6px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    }
+}
+
+// 右侧列表中的状态按钮样式
+.switchButtonActive {
+    &>span>span>span {
+        background-color: #3986ff;
+    }
+    &>span:nth-child(2) {
+        background-color: #3986ff!important;
+    }
+}
+.switchButton {
+    &>span>span>span {
+        background-color: #9b9b9b;
+    }
+    &>span:nth-child(2) {
+        background-color:  #cdccdd;
+    }
+}
+
+// 弹窗样式
+
+.dialogContainer{
+    &>div:nth-child(2) {
+        max-width: 100%;
+        overflow: hidden;
+        &>div {
+            padding: 33px 33px 20px 33px;
+            box-sizing: border-box;
+            width: 650px;
+            overflow-y: hidden;
+            overflow: auto;
+        }
+    }
+    .dialogContent {
+        display: flex;
+        box-sizing: border-box;
+        margin-top: 33px;
+        .dialogInput {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            .inputCheck {
+                color: #f44336;
+                font-size: 12px;
+            }
+        }
+    }
+    .addKSDialogContent {
+        font-size: 14px;
+        color: #111111;
+        align-items: center;
+    }
+    .authorDialogContent {
+        font-size: 14px;
+        color: #9b9b9b;
+        flex-direction: column;
+        align-items: flex-start;
+        div {
+            width: 70%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+    .dialogButtons {
+        height: 40px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        box-sizing: border-box;
+        margin: 33px 0 0 0;
+    }
+}

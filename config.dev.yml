@@ -1,0 +1,36 @@
+server:
+  port: 8080
+  debug: false
+  status: "dev"
+
+grpc:
+  port: 9191
+
+fone:
+  host: "https://f1.example.com"
+  user: "user"
+  passwd: "passwd"
+  timeout: 3
+
+nameserver:
+  - ns1.newio.cc
+  - ns2.newio.cc
+
+redis:
+  host: "127.0.0.1"
+  port: "6379"
+  passwd: ""
+  db: 0
+
+mysql:
+  host: "10.20.63.173"
+  port: 3306
+  user: "root"
+  passwd: "666666"
+  dbname: "dns_one"
+
+saml:
+  domain: "localhost"
+  idpssourl: "https://idp/sso/saml/login"
+  idpsso_descriptor_url: "http://localhost:8080"
+  assertion_consumer_service_url: "http://localhost:8080/saml/acs"

@@ -1,0 +1,27 @@
+[[constraint]]
+  name = "github.com/robfig/cron"
+  version = "1.1.0"
+
+[[override]]
+  name = "github.com/boj/redistore"
+  branch = "master"
+
+[[override]]
+  name = "github.com/haozibi/dnsutil"
+  branch = "master"
+
+[[override]]
+  name = "github.com/miekg/dns"
+  branch = "master"
+
+[[override]]
+  name = "github.com/grpc-ecosystem/go-grpc-middleware"
+  branch = "master"
+
+[[override]]
+  name = "github.com/satori/go.uuid"
+  version = "1.1.0"
+
+[prune]
+  go-tests = true
+  unused-packages = true

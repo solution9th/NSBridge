@@ -1,0 +1,14 @@
+[Unit]
+Description=DNS Bridge service.
+After=network.target
+
+[Service]
+User=root
+ExecStart=/usr/local/bin/ns_bridge
+StandardOutput=syslog
+StandardError=syslog
+Restart=on-failure
+RestartSec=1s
+
+[Install]
+WantedBy=multi-user.target

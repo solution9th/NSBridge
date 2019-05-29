@@ -1,0 +1,884 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "dns_pb/dns.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/domain/{id}": {
+      "delete": {
+        "summary": "域名删除",
+        "operationId": "DomainDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseDomainDelete"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "api_key",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/domains": {
+      "get": {
+        "summary": "获得域名列表",
+        "operationId": "DomainsList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseDomainList"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "start",
+            "description": "string key = 1;.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      },
+      "post": {
+        "summary": "创建新的域名",
+        "operationId": "DomainCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseDomainCreate"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dns_pbRequestDomainCreate"
+            }
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/lines/all": {
+      "get": {
+        "summary": "查看线路",
+        "operationId": "LineAll",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          }
+        },
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/lines/cityisp": {
+      "get": {
+        "operationId": "LineCityIsp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          }
+        },
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/lines/continental": {
+      "get": {
+        "operationId": "LineContinental",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          }
+        },
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/lines/country": {
+      "get": {
+        "operationId": "LineCountry",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          }
+        },
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/lines/isp": {
+      "get": {
+        "operationId": "LineISP",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          }
+        },
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/lines/outcity": {
+      "get": {
+        "operationId": "LineOutCity",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          }
+        },
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/lines/province": {
+      "get": {
+        "operationId": "LineProvince",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          }
+        },
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/record/{recordId}": {
+      "get": {
+        "summary": "获取解析记录详情",
+        "operationId": "RecordInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseRecordInfo"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "recordId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "record_key",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      },
+      "delete": {
+        "summary": "删除解析记录",
+        "operationId": "RecordDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseRecordDelete"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "recordId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "record_key",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      },
+      "put": {
+        "summary": "更新解析记录",
+        "operationId": "RecordUpdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseRecordUpdate"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "recordId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dns_pbRequestRecordUpdate"
+            }
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      },
+      "patch": {
+        "summary": "暂停、启动解析记录",
+        "operationId": "RecordDisable",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseRecordDisable"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "recordId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dns_pbRequestRecordDisable"
+            }
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/records": {
+      "get": {
+        "summary": "获取解析记录列表",
+        "operationId": "RecordList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseRecordList"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "record_key",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      },
+      "post": {
+        "summary": "新增解析记录",
+        "operationId": "RecordCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseRecordCreate"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dns_pbRequestRecordCreate"
+            }
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/status": {
+      "get": {
+        "summary": "查看域名托管状态",
+        "operationId": "DomainStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseDomainStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/types": {
+      "get": {
+        "summary": "查看可以添加的类型",
+        "operationId": "Types",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          }
+        },
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "apiHttpBody": {
+      "type": "object",
+      "properties": {
+        "content_type": {
+          "type": "string",
+          "description": "The HTTP Content-Type header value specifying the content type of the body."
+        },
+        "data": {
+          "type": "string",
+          "format": "byte",
+          "description": "The HTTP request/response body as raw binary."
+        },
+        "extensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          },
+          "description": "Application specific response metadata. Must be set in the first response\nfor streaming APIs."
+        }
+      },
+      "description": "Message that represents an arbitrary HTTP body. It should only be used for\npayload formats that can't be represented as JSON, such as raw binary or\nan HTML page.\n\n\nThis message can be used both in streaming and non-streaming API methods in\nthe request as well as the response.\n\nIt can be used as a top-level request field, which is convenient if one\nwants to extract parameters from either the URL or HTTP template into the\nrequest fields and also want access to the raw HTTP body.\n\nExample:\n\n    message GetResourceRequest {\n      // A unique request id.\n      string request_id = 1;\n\n      // The raw HTTP body is bound to this field.\n      google.api.HttpBody http_body = 2;\n    }\n\n    service ResourceService {\n      rpc GetResource(GetResourceRequest) returns (google.api.HttpBody);\n      rpc UpdateResource(google.api.HttpBody) returns\n      (google.protobuf.Empty);\n    }\n\nExample with streaming methods:\n\n    service CaldavService {\n      rpc GetCalendar(stream google.api.HttpBody)\n        returns (stream google.api.HttpBody);\n      rpc UpdateCalendar(stream google.api.HttpBody)\n        returns (stream google.api.HttpBody);\n    }\n\nUse of this type only changes how the request and response bodies are\nhandled, all other features will continue to work unchanged."
+    },
+    "dns_pbDomainInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "fone_domain_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "domain_key": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "name_server": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "soa_email": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "is_take_over": {
+          "type": "string",
+          "format": "int64"
+        },
+        "is_open_key": {
+          "type": "string",
+          "format": "int64"
+        },
+        "record_key": {
+          "type": "string"
+        },
+        "record_secret": {
+          "type": "string"
+        },
+        "create_at": {
+          "type": "string"
+        },
+        "update_at": {
+          "type": "string"
+        }
+      }
+    },
+    "dns_pbDomainListData": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dns_pbDomainInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "dns_pbRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "domain_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fone_domain_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fone_record_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sub_domain": {
+          "type": "string"
+        },
+        "record_type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "line_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ttl": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "disable": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "create_at": {
+          "type": "string"
+        },
+        "update_at": {
+          "type": "string"
+        }
+      }
+    },
+    "dns_pbRecordListData": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dns_pbRecord"
+          }
+        }
+      }
+    },
+    "dns_pbRequestDomainCreate": {
+      "type": "object",
+      "properties": {
+        "api_key": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        }
+      }
+    },
+    "dns_pbRequestRecordCreate": {
+      "type": "object",
+      "properties": {
+        "record_key": {
+          "type": "string"
+        },
+        "sub_domain": {
+          "type": "string"
+        },
+        "record_type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "line_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "ttl": {
+          "type": "string",
+          "format": "int64"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "dns_pbRequestRecordDisable": {
+      "type": "object",
+      "properties": {
+        "record_key": {
+          "type": "string"
+        },
+        "recordId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "disable": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "dns_pbRequestRecordUpdate": {
+      "type": "object",
+      "properties": {
+        "record_key": {
+          "type": "string"
+        },
+        "recordId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sub_domain": {
+          "type": "string"
+        },
+        "record_type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "line_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ttl": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "dns_pbResponseDomainCreate": {
+      "type": "object",
+      "properties": {
+        "err_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "err_msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/dns_pbDomainInfo"
+        }
+      }
+    },
+    "dns_pbResponseDomainDelete": {
+      "type": "object",
+      "properties": {
+        "err_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "err_msg": {
+          "type": "string"
+        }
+      }
+    },
+    "dns_pbResponseDomainList": {
+      "type": "object",
+      "properties": {
+        "err_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "err_msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/dns_pbDomainListData"
+        }
+      }
+    },
+    "dns_pbResponseDomainStatus": {
+      "type": "object",
+      "properties": {
+        "err_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "err_msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/dns_pbTakeOver"
+        }
+      }
+    },
+    "dns_pbResponseRecordCreate": {
+      "type": "object",
+      "properties": {
+        "err_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "err_msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/dns_pbRecord"
+        }
+      }
+    },
+    "dns_pbResponseRecordDelete": {
+      "type": "object",
+      "properties": {
+        "err_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "err_msg": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        }
+      }
+    },
+    "dns_pbResponseRecordDisable": {
+      "type": "object",
+      "properties": {
+        "err_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "err_msg": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        }
+      }
+    },
+    "dns_pbResponseRecordInfo": {
+      "type": "object",
+      "properties": {
+        "err_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "err_msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/dns_pbRecord"
+        }
+      }
+    },
+    "dns_pbResponseRecordList": {
+      "type": "object",
+      "properties": {
+        "err_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "err_msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/dns_pbRecordListData"
+        }
+      }
+    },
+    "dns_pbResponseRecordUpdate": {
+      "type": "object",
+      "properties": {
+        "err_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "err_msg": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        }
+      }
+    },
+    "dns_pbTakeOver": {
+      "type": "object",
+      "properties": {
+        "is_take_over": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string",
+          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+        },
+        "value": {
+          "type": "string",
+          "format": "byte",
+          "description": "Must be a valid serialized protocol buffer of the above specified type."
+        }
+      },
+      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := ptypes.MarshalAny(foo)\n     ...\n     foo := \u0026pb.Foo{}\n     if err := ptypes.UnmarshalAny(any, foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    }
+  }
+}

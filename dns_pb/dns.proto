@@ -1,0 +1,350 @@
+syntax = "proto3";
+
+package dns_pb;
+
+import "google/api/annotations.proto";
+// import "google/protobuf/any.proto";
+// import "google/protobuf/timestamp.proto";
+import "google/api/httpbody.proto";
+import "google/protobuf/empty.proto";
+
+// 为了让 js 支持大数所以 int64 位 json 之后都会是 string
+// 可以使用 int32 格式，则返回还是 int 类型
+// The JavaScript number format allows you to exactly represent all integers between
+// −9007199254740992  and 9007199254740992 （即正负2的53次方）
+
+service DNSServer {
+
+    // 获得域名列表
+    rpc DomainsList (RequestDomainsList) returns (ResponseDomainList) {
+        option (google.api.http) = {
+            get: "/api/v1/domains"
+        };
+    }
+
+    // 获得授权key下的域名列表
+    rpc OwnDomainsList (RequestOwnDomainsList) returns (ResponseDomainList) {
+        option (google.api.http) = {
+            get: "/api/v1/domains/own"
+        };
+    }
+
+    // 创建新的域名
+    rpc DomainCreate (RequestDomainCreate) returns (ResponseDomainCreate) {
+        option (google.api.http) = {
+            post: "/api/v1/domains",
+            body: "*"
+        };
+    }
+
+    // 域名删除
+    rpc DomainDelete (RequestDomainDelete) returns (ResponseDomainDelete) {
+        option (google.api.http) = {
+            delete: "/api/v1/domain/{id}",
+        };
+    }
+
+    // 查看域名托管状态
+    rpc DomainStatus (RequestDomainStatus) returns (ResponseDomainStatus) {
+        option (google.api.http) = {
+            get: "/api/v1/status",
+        };
+    }
+
+    // 查看可以添加的类型
+    rpc Types (google.protobuf.Empty) returns (google.api.HttpBody){
+        option (google.api.http) = {
+            get: "/api/v1/types"
+        };
+    }
+
+    // 查看线路
+    rpc LineAll (google.protobuf.Empty) returns (google.api.HttpBody){
+        option (google.api.http) = {
+            get: "/api/v1/lines/all"
+        };
+    }
+
+    rpc LineContinental (google.protobuf.Empty) returns (google.api.HttpBody){
+        option (google.api.http) = {
+            get: "/api/v1/lines/continental"
+        };
+    }
+
+    rpc LineISP (google.protobuf.Empty) returns (google.api.HttpBody){
+        option (google.api.http) = {
+            get: "/api/v1/lines/isp"
+        };
+    }
+
+    rpc LineCountry (google.protobuf.Empty) returns (google.api.HttpBody){
+        option (google.api.http) = {
+            get: "/api/v1/lines/country"
+        };
+    }
+
+    rpc LineProvince (google.protobuf.Empty) returns (google.api.HttpBody){
+        option (google.api.http) = {
+            get: "/api/v1/lines/province"
+        };
+    }
+
+    rpc LineOutCity (google.protobuf.Empty) returns (google.api.HttpBody){
+        option (google.api.http) = {
+            get: "/api/v1/lines/outcity"
+        };
+    }
+
+    rpc LineCityIsp (google.protobuf.Empty) returns (google.api.HttpBody){
+        option (google.api.http) = {
+            get: "/api/v1/lines/cityisp"
+        };
+    }
+    
+
+
+
+    // 获取解析记录列表
+    rpc RecordList (RequestRecordList) returns (ResponseRecordList) {
+        option (google.api.http) = {
+            get: "/api/v1/records",
+    };
+    }
+
+    // 获取解析记录详情
+    rpc RecordInfo (RequestRecordInfo) returns (ResponseRecordInfo) {
+        option (google.api.http) = {
+            get: "/api/v1/record/{recordId}",
+    };
+    }
+
+    // 根据record_key获取domain
+    rpc RecordDomainOfRK (RequestDomainOfRK) returns (ResponseDomainOfRK) {
+        option (google.api.http) = {
+            get: "/api/v1/records/domain",
+    };
+    }
+
+    // 新增解析记录
+    rpc RecordCreate (RequestRecordCreate) returns (ResponseRecordCreate) {
+        option (google.api.http) = {
+            post: "/api/v1/records",
+            body: "*"
+    };
+    }
+
+    // 更新解析记录
+    rpc RecordUpdate (RequestRecordUpdate) returns (ResponseRecordUpdate) {
+        option (google.api.http) = {
+            put: "/api/v1/record/{recordId}",
+            body: "*"
+    };
+    }
+
+    // 删除解析记录
+    rpc RecordDelete (RequestRecordDelete) returns (ResponseRecordDelete) {
+        option (google.api.http) = {
+            delete: "/api/v1/record/{recordId}",
+    };
+    }
+
+    // 暂停、启动解析记录
+    rpc RecordDisable (RequestRecordDisable) returns (ResponseRecordDisable) {
+        option (google.api.http) = {
+            patch: "/api/v1/record/{recordId}",
+            body: "*"
+    };
+    }
+}
+
+message RequestRecordList {
+    string record_key = 1;
+    uint32 start = 3;
+    uint32 count = 4;
+}
+
+message ResponseRecordList {
+    int32 err_code = 1;
+    string err_msg = 2;
+    RecordListData data = 3;
+}
+
+message RecordListData {
+    int32 total = 1;
+    repeated Record list = 2;
+}
+
+message Record {
+    int32 id = 1;
+    int32 domain_id = 2;
+    int32 fone_domain_id = 3;
+    int32 fone_record_id = 4;
+    string sub_domain = 5;
+    string record_type = 6;
+    string value = 7;
+    int32 line_id = 8;
+    int32 ttl = 9;
+    string unit = 10;
+    int32 priority = 11;
+    int32 disable = 12;
+    string create_at = 13;
+    string update_at = 14;
+}
+
+message RequestRecordInfo {
+    string record_key = 1;
+    int32 recordId = 3;
+}
+
+message ResponseRecordInfo {
+    int32 err_code = 1;
+    string err_msg = 2;
+    Record data = 3;
+}
+
+message RequestDomainOfRK {
+    string record_key = 1;
+}
+
+message ResponseDomainOfRK {
+    int32 err_code = 1;
+    string err_msg = 2;
+    DomainInfo data = 3;
+}
+
+message RequestRecordCreate {
+    string record_key = 1;
+    string sub_domain = 3;
+    string record_type = 4;
+    string value = 5;
+    int64 line_id = 6;
+    int64 ttl = 7;
+    string unit = 8;
+    int64 priority = 9;
+}
+
+message ResponseRecordCreate {
+    int32 err_code = 1;
+    string err_msg = 2;
+    Record data = 3;
+}
+
+message RequestRecordUpdate {
+    string record_key = 1;
+    int32 recordId = 3;
+    string sub_domain = 4;
+    string record_type = 5;
+    string value = 6;
+    int32 line_id = 7;
+    int32 ttl = 8;
+    string unit = 9;
+    int32 priority = 10;
+}
+
+message ResponseRecordUpdate {
+    int32 err_code = 1;
+    string err_msg = 2;
+    string data = 3;
+}
+
+message RequestRecordDelete {
+    string record_key = 1;
+    int32 recordId = 3;
+}
+
+message ResponseRecordDelete {
+    int32 err_code = 1;
+    string err_msg = 2;
+    string data = 3;
+}
+
+message RequestRecordDisable {
+    string record_key = 1;
+    int32 recordId = 3;
+    bool disable = 4;
+}
+
+message ResponseRecordDisable {
+    int32 err_code = 1;
+    string err_msg = 2;
+    string data = 3;
+}
+
+// domain
+
+message RequestDomainsList {
+    // string key = 1;
+    uint64 start = 2;
+    uint64 count = 3;
+}
+
+message RequestOwnDomainsList {
+    string key = 1;
+    uint64 start = 2;
+    uint64 count = 3;
+}
+
+message ResponseDomainList {
+    int32 err_code = 1;
+    string err_msg = 2;
+    DomainListData data = 3;
+}
+
+message DomainListData {
+    repeated DomainInfo list = 1;
+    int32 total = 2;
+}
+
+message DomainInfo {
+    int64 id = 1;
+    int64 fone_domain_id = 2;
+    string domain_key = 3;
+    string domain = 4;
+    repeated string name_server = 5;
+    string soa_email = 6;
+    string remark = 7;
+    int64 is_take_over = 8;
+    int64 is_open_key = 9;
+    string record_key = 10;
+    string record_secret = 11;
+    string create_at = 12;
+    string update_at = 13;
+}
+
+
+message RequestDomainCreate {
+    string api_key = 1;
+    string domain = 2;
+    string remark = 3;
+}
+
+message ResponseDomainCreate {
+    int32 err_code = 1;
+    string err_msg = 2;
+    DomainInfo data = 3;
+}
+
+message RequestDomainDelete {
+    string api_key = 1;
+    int64 id = 2;
+}
+
+message ResponseDomainDelete {
+    int32 err_code = 1;
+    string err_msg = 2;
+}
+
+
+message RequestDomainStatus {
+    string api_key = 1;
+}
+
+message ResponseDomainStatus {
+    int32 err_code = 1;
+    string err_msg = 2;
+    TakeOver data = 3;
+}
+
+message TakeOver {
+    int32 is_take_over = 1;
+}

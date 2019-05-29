@@ -1,0 +1,16 @@
+/* 暂时没用 */
+.loadingStyle {
+    width: 100%;
+    height: 100vh; 
+    z-index: 999;
+    position: fixed; 
+    background-color: rgba(0,0,0,0.6);
+    color: white; 
+    font-size: 80px; 
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+.container {
+    background-color: lightgreen;
+}
