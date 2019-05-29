@@ -1,10 +1,12 @@
 # NSBridge
 
+[![GoDoc](https://godoc.org/github.com/solution9th/NSBridge?status.svg)](https://godoc.org/github.com/solution9th/NSBridge)&nbsp;&nbsp;[![Go Report Card](https://goreportcard.com/badge/github.com/solution9th/NSBridge)](https://goreportcard.com/report/github.com/solution9th/NSBridge)
+
 NSBridge 是一个桥梁服务，对上提供统一的 Name Server API 服务，对下封装 Bind、DNSPod、CloudXNS、OREdge 等 NS Provider，并集成图形化的 API 赋权、域名管理、日志审计、服务预警等能力。
 
 ## 当前支持的NS Provider
 
-- OREdge
+- OpenResty® Edge
 
 ## 当前支持的记录类型
 
@@ -15,25 +17,29 @@ NSBridge 是一个桥梁服务，对上提供统一的 Name Server API 服务，
 - NS
 
 ## 系统截图
+
 ### 授权
-![image](./docs/img/auth.png)
+
+![image](docs/img/auth.png)
 
 ### 域名
-![image](./docs/img/domain.png)
+
+![image](docs/img/domain.png)
 
 ### 解析记录
-![image](./docs/img/record.png)
+
+![image](docs/img/record.png)
 
 ## 安装
 
 ### 依赖的软件
 
 | 软件 | 版本|
-|:---------|:-------:|
-| node.js     |  8.4.0 (及以上) |
-| golang  |  1.9 (及以上) |
-| mysql  |  5.6.35 (及以上) |
-| redis  |  4.0.1 (及以上) |
+|:--:|:--:|
+|Node.js|8.4.0 (及以上)|
+|Golang|1.9 (及以上)|
+|MySQL|5.6.35 (及以上)|
+|Redis|4.0.1 (及以上)|
 
 ### 获取源码
 
