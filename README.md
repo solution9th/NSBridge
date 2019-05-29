@@ -16,13 +16,13 @@ NSBridge 是一个桥梁服务，对上提供统一的 Name Server API 服务，
 
 ## 系统截图
 ### 授权
-![image](https://github.com/solution9th/NSBridge/docs/img/auth.png)
+![image](./docs/img/auth.png)
 
 ### 域名
-![image](https://github.com/solution9th/NSBridge/docs/img/domain.png)
+![image](./docs/img/domain.png)
 
 ### 解析记录
-![image](https://github.com/solution9th/NSBridge/docs/img/record.png)
+![image](./docs/img/record.png)
 
 ## 安装
 
@@ -96,7 +96,6 @@ $ npm run dev
 进入`NSBridge`目录，然后运行
 
 快速运行
-
 ```shell
 $ make build
 $ ./ns_bridge
