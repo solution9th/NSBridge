@@ -1,6 +1,6 @@
 # NSBridge
 
-![image](https://img.shields.io/badge/golang-1.9+-green.svg)![image](https://img.shields.io/badge/license-MIT-blue.svg)[![GoDoc](https://godoc.org/github.com/solution9th/NSBridge?status.svg)](https://godoc.org/github.com/solution9th/NSBridge)&nbsp;&nbsp;[![Go Report Card](https://goreportcard.com/badge/github.com/solution9th/NSBridge)](https://goreportcard.com/report/github.com/solution9th/NSBridge)
+![image](https://img.shields.io/badge/build-passing-brightgreen.svg)&nbsp;&nbsp;![image](https://img.shields.io/badge/golang-1.9+-green.svg)&nbsp;&nbsp;![image](https://img.shields.io/badge/license-MIT-blue.svg)&nbsp;&nbsp;[![GoDoc](https://godoc.org/github.com/solution9th/NSBridge?status.svg)](https://godoc.org/github.com/solution9th/NSBridge)&nbsp;&nbsp;[![Go Report Card](https://goreportcard.com/badge/github.com/solution9th/NSBridge)](https://goreportcard.com/report/github.com/solution9th/NSBridge)
 
 NSBridge 是一个桥梁服务，对上提供统一的 Name Server API 服务，对下封装 Bind、DNSPod、CloudXNS、OREdge 等 NS Provider，并集成图形化的 API 赋权、域名管理、日志审计、服务预警等能力。
 
