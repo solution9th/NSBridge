@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/solution9th/NSBridge/config"
-	"github.com/solution9th/NSBridge/service/cache"
-	"github.com/solution9th/NSBridge/service/database"
-	"github.com/solution9th/NSBridge/utils"
+	"github.com/solution9th/NSBridge/internal/config"
+	"github.com/solution9th/NSBridge/internal/service/cache"
+	"github.com/solution9th/NSBridge/internal/service/database"
+	"github.com/solution9th/NSBridge/internal/utils"
 
 	"github.com/gin-gonic/gin"
 )

@@ -5,12 +5,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/solution9th/NSBridge/dns"
 	pb "github.com/solution9th/NSBridge/dns_pb"
-	"github.com/solution9th/NSBridge/models"
-	"github.com/solution9th/NSBridge/service/cache"
-	"github.com/solution9th/NSBridge/service/database"
-	"github.com/solution9th/NSBridge/utils"
+	"github.com/solution9th/NSBridge/internal/dns"
+	"github.com/solution9th/NSBridge/internal/nserr"
+	"github.com/solution9th/NSBridge/internal/service/cache"
+	"github.com/solution9th/NSBridge/internal/service/database"
+	"github.com/solution9th/NSBridge/internal/utils"
 )
 
 const (
@@ -25,8 +25,8 @@ func (c *RPCServer) RecordList(ctx context.Context, in *pb.RequestRecordList) (*
 	key, ok := IsOkRequest(ctx, in.RecordKey)
 	if !ok || !IsRecordKey(key) {
 		return &pb.ResponseRecordList{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
@@ -40,8 +40,8 @@ func (c *RPCServer) RecordList(ctx context.Context, in *pb.RequestRecordList) (*
 	if err != nil {
 		utils.Error("get all record error:", err)
 		return &pb.ResponseRecordList{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 
@@ -49,8 +49,8 @@ func (c *RPCServer) RecordList(ctx context.Context, in *pb.RequestRecordList) (*
 	if err != nil {
 		utils.Error("get all record error:", err)
 		return &pb.ResponseRecordList{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 
@@ -58,8 +58,8 @@ func (c *RPCServer) RecordList(ctx context.Context, in *pb.RequestRecordList) (*
 	if err != nil {
 		utils.Error("get total num error:", err)
 		return &pb.ResponseRecordList{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 
 	}
@@ -91,8 +91,8 @@ func (c *RPCServer) RecordDomainOfRK(ctx context.Context, in *pb.RequestDomainOf
 	key, ok := IsOkRequest(ctx, in.RecordKey)
 	if !ok || !IsRecordKey(key) {
 		return &pb.ResponseDomainOfRK{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
@@ -101,8 +101,8 @@ func (c *RPCServer) RecordDomainOfRK(ctx context.Context, in *pb.RequestDomainOf
 	if err != nil {
 		utils.Error("get record info error:", err)
 		return &pb.ResponseDomainOfRK{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 	info := &pb.ResponseDomainOfRK{
@@ -116,8 +116,8 @@ func (c *RPCServer) RecordDomainOfRK(ctx context.Context, in *pb.RequestDomainOf
 	if err != nil {
 		utils.Error("type error:", err)
 		return &pb.ResponseDomainOfRK{
-			ErrCode: models.ErrDNSSDK,
-			ErrMsg:  utils.ErrCode[models.ErrDNSSDK],
+			ErrCode: nserr.ErrDNSSDK,
+			ErrMsg:  utils.ErrCode[nserr.ErrDNSSDK],
 		}, nil
 	}
 
@@ -134,14 +134,14 @@ func (c *RPCServer) RecordInfo(ctx context.Context, in *pb.RequestRecordInfo) (*
 	key, ok := IsOkRequest(ctx, in.RecordKey)
 	if !ok || !IsRecordKey(key) {
 		return &pb.ResponseRecordInfo{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 	if !CheckRecordPermission(key, int(in.RecordId)) {
 		return &pb.ResponseRecordInfo{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
@@ -152,16 +152,16 @@ func (c *RPCServer) RecordInfo(ctx context.Context, in *pb.RequestRecordInfo) (*
 	}
 	if !exist {
 		return &pb.ResponseRecordInfo{
-			ErrCode: models.ErrRecordNotFound,
-			ErrMsg:  utils.ErrCode[models.ErrRecordNotFound],
+			ErrCode: nserr.ErrRecordNotFound,
+			ErrMsg:  utils.ErrCode[nserr.ErrRecordNotFound],
 		}, nil
 	}
 	record, err := db.GetRecordByReID(int(in.RecordId))
 	if err != nil {
 		utils.Error("get record info error:", err)
 		return &pb.ResponseRecordInfo{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 	info := &pb.ResponseRecordInfo{}
@@ -172,8 +172,8 @@ func (c *RPCServer) RecordInfo(ctx context.Context, in *pb.RequestRecordInfo) (*
 	if err != nil {
 		utils.Error("get record info error:", err)
 		return &pb.ResponseRecordInfo{
-			ErrCode: models.ErrErr,
-			ErrMsg:  utils.ErrCode[models.ErrErr],
+			ErrCode: nserr.ErrErr,
+			ErrMsg:  utils.ErrCode[nserr.ErrErr],
 		}, nil
 	}
 	info.Data = &data
@@ -186,28 +186,28 @@ func (c *RPCServer) RecordCreate(ctx context.Context, in *pb.RequestRecordCreate
 	key, ok := IsOkRequest(ctx, in.RecordKey)
 	if !ok || !IsRecordKey(key) {
 		return &pb.ResponseRecordCreate{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
 	if in.SubDomain == "" {
 		return &pb.ResponseRecordCreate{
-			ErrCode: models.ErrParams,
+			ErrCode: nserr.ErrParams,
 		}, nil
 	}
 
 	if in.RecordType == "" {
 		return &pb.ResponseRecordCreate{
-			ErrCode: models.ErrParams,
-			ErrMsg:  utils.ErrCode[models.ErrParams] + ": miss record_type",
+			ErrCode: nserr.ErrParams,
+			ErrMsg:  utils.ErrCode[nserr.ErrParams] + ": miss record_type",
 		}, nil
 	}
 
 	if in.Value == "" {
 		return &pb.ResponseRecordCreate{
-			ErrCode: models.ErrParams,
-			ErrMsg:  utils.ErrCode[models.ErrParams] + ": miss value",
+			ErrCode: nserr.ErrParams,
+			ErrMsg:  utils.ErrCode[nserr.ErrParams] + ": miss value",
 		}, nil
 	}
 
@@ -225,8 +225,8 @@ func (c *RPCServer) RecordCreate(ctx context.Context, in *pb.RequestRecordCreate
 	if err != nil {
 		utils.Error("get record info error:", err)
 		return &pb.ResponseRecordCreate{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 
@@ -236,8 +236,8 @@ func (c *RPCServer) RecordCreate(ctx context.Context, in *pb.RequestRecordCreate
 	if err != nil {
 		utils.Error("create record type convert error:", err)
 		return &pb.ResponseRecordCreate{
-			ErrCode: models.ErrErr,
-			ErrMsg:  utils.ErrCode[models.ErrErr],
+			ErrCode: nserr.ErrErr,
+			ErrMsg:  utils.ErrCode[nserr.ErrErr],
 		}, nil
 	}
 	record.DomainID = domain.ID
@@ -247,48 +247,48 @@ func (c *RPCServer) RecordCreate(ctx context.Context, in *pb.RequestRecordCreate
 		switch err {
 		case dns.ErrRecordSubDomain:
 			return &pb.ResponseRecordCreate{
-				ErrCode: models.ErrRecordSubDomain,
-				ErrMsg:  utils.ErrCode[models.ErrRecordSubDomain],
+				ErrCode: nserr.ErrRecordSubDomain,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordSubDomain],
 			}, nil
 		case dns.ErrRecordIP:
 			return &pb.ResponseRecordCreate{
-				ErrCode: models.ErrRecordIP,
-				ErrMsg:  utils.ErrCode[models.ErrRecordIP],
+				ErrCode: nserr.ErrRecordIP,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordIP],
 			}, nil
 		case dns.ErrRecordDomain:
 			return &pb.ResponseRecordCreate{
-				ErrCode: models.ErrRecordDomain,
-				ErrMsg:  utils.ErrCode[models.ErrRecordDomain],
+				ErrCode: nserr.ErrRecordDomain,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordDomain],
 			}, nil
 		case dns.ErrRecordMissTxt:
 			return &pb.ResponseRecordCreate{
-				ErrCode: models.ErrRecordMissTxt,
-				ErrMsg:  utils.ErrCode[models.ErrRecordMissTxt],
+				ErrCode: nserr.ErrRecordMissTxt,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordMissTxt],
 			}, nil
 		case dns.ErrDomainNotExist:
 			return &pb.ResponseRecordCreate{
-				ErrCode: models.ErrDomainExist,
-				ErrMsg:  utils.ErrCode[models.ErrDomainExist],
+				ErrCode: nserr.ErrDomainExist,
+				ErrMsg:  utils.ErrCode[nserr.ErrDomainExist],
 			}, nil
 		case dns.ErrRecordTypeNotSupport:
 			return &pb.ResponseRecordCreate{
-				ErrCode: models.ErrRecordTypeSupport,
-				ErrMsg:  utils.ErrCode[models.ErrRecordTypeSupport],
+				ErrCode: nserr.ErrRecordTypeSupport,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordTypeSupport],
 			}, nil
 		case dns.ErrRecordTypeMutex: // 互斥
 			return &pb.ResponseRecordCreate{
-				ErrCode: models.ErrRecordTypeMutex,
-				ErrMsg:  utils.ErrCode[models.ErrRecordTypeMutex],
+				ErrCode: nserr.ErrRecordTypeMutex,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordTypeMutex],
 			}, nil
 		case dns.ErrRecordExist:
 			return &pb.ResponseRecordCreate{
-				ErrCode: models.ErrRecordExist,
-				ErrMsg:  utils.ErrCode[models.ErrRecordExist],
+				ErrCode: nserr.ErrRecordExist,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordExist],
 			}, nil
 		default:
 			return &pb.ResponseRecordCreate{
-				ErrCode: models.ErrDNSSDK,
-				ErrMsg:  utils.ErrCode[models.ErrDNSSDK],
+				ErrCode: nserr.ErrDNSSDK,
+				ErrMsg:  utils.ErrCode[nserr.ErrDNSSDK],
 			}, nil
 		}
 	}
@@ -298,8 +298,8 @@ func (c *RPCServer) RecordCreate(ctx context.Context, in *pb.RequestRecordCreate
 	if err != nil {
 		utils.Error("get record info error:", err)
 		return &pb.ResponseRecordCreate{
-			ErrCode: models.ErrErr,
-			ErrMsg:  utils.ErrCode[models.ErrErr],
+			ErrCode: nserr.ErrErr,
+			ErrMsg:  utils.ErrCode[nserr.ErrErr],
 		}, nil
 	}
 	info := &pb.ResponseRecordCreate{
@@ -319,15 +319,15 @@ func (c *RPCServer) RecordUpdate(ctx context.Context, in *pb.RequestRecordUpdate
 	key, ok := IsOkRequest(ctx, in.RecordKey)
 	if !ok || !IsRecordKey(key) {
 		return &pb.ResponseRecordUpdate{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
 	if !CheckRecordPermission(key, int(in.RecordId)) {
 		return &pb.ResponseRecordUpdate{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
@@ -336,8 +336,8 @@ func (c *RPCServer) RecordUpdate(ctx context.Context, in *pb.RequestRecordUpdate
 	if err != nil {
 		utils.Error("upadte record type convert error:", err)
 		return &pb.ResponseRecordUpdate{
-			ErrCode: models.ErrErr,
-			ErrMsg:  utils.ErrCode[models.ErrErr],
+			ErrCode: nserr.ErrErr,
+			ErrMsg:  utils.ErrCode[nserr.ErrErr],
 		}, nil
 	}
 	d := dns.New("fone")
@@ -348,48 +348,48 @@ func (c *RPCServer) RecordUpdate(ctx context.Context, in *pb.RequestRecordUpdate
 		switch err {
 		case dns.ErrRecordSubDomain:
 			return &pb.ResponseRecordUpdate{
-				ErrCode: models.ErrRecordSubDomain,
-				ErrMsg:  utils.ErrCode[models.ErrRecordSubDomain],
+				ErrCode: nserr.ErrRecordSubDomain,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordSubDomain],
 			}, nil
 		case dns.ErrRecordIP:
 			return &pb.ResponseRecordUpdate{
-				ErrCode: models.ErrRecordIP,
-				ErrMsg:  utils.ErrCode[models.ErrRecordIP],
+				ErrCode: nserr.ErrRecordIP,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordIP],
 			}, nil
 		case dns.ErrRecordDomain:
 			return &pb.ResponseRecordUpdate{
-				ErrCode: models.ErrRecordDomain,
-				ErrMsg:  utils.ErrCode[models.ErrRecordDomain],
+				ErrCode: nserr.ErrRecordDomain,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordDomain],
 			}, nil
 		case dns.ErrRecordTypeNotSupport:
 			return &pb.ResponseRecordUpdate{
-				ErrCode: models.ErrRecordTypeSupport,
-				ErrMsg:  utils.ErrCode[models.ErrRecordTypeSupport],
+				ErrCode: nserr.ErrRecordTypeSupport,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordTypeSupport],
 			}, nil
 		case dns.ErrRecordMissTxt:
 			return &pb.ResponseRecordUpdate{
-				ErrCode: models.ErrRecordMissTxt,
-				ErrMsg:  utils.ErrCode[models.ErrRecordMissTxt],
+				ErrCode: nserr.ErrRecordMissTxt,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordMissTxt],
 			}, nil
 		case dns.ErrRecordNotExist:
 			return &pb.ResponseRecordUpdate{
-				ErrCode: models.ErrRecordNotFound,
-				ErrMsg:  utils.ErrCode[models.ErrRecordNotFound],
+				ErrCode: nserr.ErrRecordNotFound,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordNotFound],
 			}, nil
 		case dns.ErrRecordTypeMutex:
 			return &pb.ResponseRecordUpdate{
-				ErrCode: models.ErrRecordTypeMutex,
-				ErrMsg:  utils.ErrCode[models.ErrRecordTypeMutex],
+				ErrCode: nserr.ErrRecordTypeMutex,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordTypeMutex],
 			}, nil
 		case dns.ErrRecordExist:
 			return &pb.ResponseRecordUpdate{
-				ErrCode: models.ErrRecordExist,
-				ErrMsg:  utils.ErrCode[models.ErrRecordExist],
+				ErrCode: nserr.ErrRecordExist,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordExist],
 			}, nil
 		default:
 			return &pb.ResponseRecordUpdate{
-				ErrCode: models.ErrDNSSDK,
-				ErrMsg:  utils.ErrCode[models.ErrDNSSDK],
+				ErrCode: nserr.ErrDNSSDK,
+				ErrMsg:  utils.ErrCode[nserr.ErrDNSSDK],
 			}, nil
 		}
 	}
@@ -408,15 +408,15 @@ func (c *RPCServer) RecordDelete(ctx context.Context, in *pb.RequestRecordDelete
 	key, ok := IsOkRequest(ctx, in.RecordKey)
 	if !ok || !IsRecordKey(key) {
 		return &pb.ResponseRecordDelete{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
 	if !CheckRecordPermission(key, int(in.RecordId)) {
 		return &pb.ResponseRecordDelete{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
@@ -426,13 +426,13 @@ func (c *RPCServer) RecordDelete(ctx context.Context, in *pb.RequestRecordDelete
 		utils.Errorf("delete record by id: %d, error: %v", in.RecordId, err)
 		if err == dns.ErrRecordNotExist {
 			return &pb.ResponseRecordDelete{
-				ErrCode: models.ErrRecordNotFound,
-				ErrMsg:  utils.ErrCode[models.ErrRecordNotFound],
+				ErrCode: nserr.ErrRecordNotFound,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordNotFound],
 			}, nil
 		}
 		return &pb.ResponseRecordDelete{
-			ErrCode: models.ErrDNSSDK,
-			ErrMsg:  utils.ErrCode[models.ErrDNSSDK],
+			ErrCode: nserr.ErrDNSSDK,
+			ErrMsg:  utils.ErrCode[nserr.ErrDNSSDK],
 		}, nil
 	}
 
@@ -454,15 +454,15 @@ func (c *RPCServer) RecordDisable(ctx context.Context, in *pb.RequestRecordDisab
 	key, ok := IsOkRequest(ctx, in.RecordKey)
 	if !ok || !IsRecordKey(key) {
 		return &pb.ResponseRecordDisable{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
 	if !CheckRecordPermission(key, int(in.RecordId)) {
 		return &pb.ResponseRecordDisable{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
@@ -473,13 +473,13 @@ func (c *RPCServer) RecordDisable(ctx context.Context, in *pb.RequestRecordDisab
 		utils.Errorf("disable record by id: %d, error: %v", in.RecordId, err)
 		if err == dns.ErrRecordNotExist {
 			return &pb.ResponseRecordDisable{
-				ErrCode: models.ErrRecordNotFound,
-				ErrMsg:  utils.ErrCode[models.ErrRecordNotFound],
+				ErrCode: nserr.ErrRecordNotFound,
+				ErrMsg:  utils.ErrCode[nserr.ErrRecordNotFound],
 			}, nil
 		}
 		return &pb.ResponseRecordDisable{
-			ErrCode: models.ErrDNSSDK,
-			ErrMsg:  utils.ErrCode[models.ErrDNSSDK],
+			ErrCode: nserr.ErrDNSSDK,
+			ErrMsg:  utils.ErrCode[nserr.ErrDNSSDK],
 		}, nil
 	}
 

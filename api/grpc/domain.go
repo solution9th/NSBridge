@@ -6,15 +6,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/solution9th/NSBridge/dns"
-	"github.com/solution9th/NSBridge/models"
-	"github.com/solution9th/NSBridge/sdk"
-	"github.com/solution9th/NSBridge/service/cache"
-	"github.com/solution9th/NSBridge/service/database"
-	"github.com/solution9th/NSBridge/utils"
+	pb "github.com/solution9th/NSBridge/dns_pb"
+	"github.com/solution9th/NSBridge/internal/dns"
+	"github.com/solution9th/NSBridge/internal/nserr"
+	"github.com/solution9th/NSBridge/internal/sdk"
+	"github.com/solution9th/NSBridge/internal/service/cache"
+	"github.com/solution9th/NSBridge/internal/service/database"
+	"github.com/solution9th/NSBridge/internal/utils"
 
 	"github.com/haozibi/gendry/scanner"
-	pb "github.com/solution9th/NSBridge/dns_pb"
 )
 
 var (
@@ -39,8 +39,8 @@ func (r *RPCServer) DomainsList(ctx context.Context, in *pb.RequestDomainsList) 
 	if err != nil {
 		utils.Error("get all domains error:", err)
 		return &pb.ResponseDomainList{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 
@@ -48,8 +48,8 @@ func (r *RPCServer) DomainsList(ctx context.Context, in *pb.RequestDomainsList) 
 	if err != nil {
 		utils.Error("get total num error:", err)
 		return &pb.ResponseDomainList{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 
@@ -81,8 +81,8 @@ func (r *RPCServer) OwnDomainsList(ctx context.Context, in *pb.RequestOwnDomains
 	if !ok || IsRecordKey(key) {
 		utils.Errorf("[DomainCreate-PD] key: %v,ok: %v,rpcKey: %v, isRecordKey: %v", key, ok, in.Key, IsRecordKey(key))
 		return &pb.ResponseDomainList{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
@@ -100,8 +100,8 @@ func (r *RPCServer) OwnDomainsList(ctx context.Context, in *pb.RequestOwnDomains
 	if err != nil {
 		utils.Error("get own domains error:", err)
 		return &pb.ResponseDomainList{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 
@@ -109,8 +109,8 @@ func (r *RPCServer) OwnDomainsList(ctx context.Context, in *pb.RequestOwnDomains
 	if err != nil {
 		utils.Error("get total num error:", err)
 		return &pb.ResponseDomainList{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 
@@ -142,8 +142,8 @@ func (r *RPCServer) DomainCreate(ctx context.Context, in *pb.RequestDomainCreate
 	if !ok || IsRecordKey(key) {
 		utils.Errorf("[DomainCreate-PD] key: %v,ok: %v,rpcKey: %v, isRecordKey: %v", key, ok, in.ApiKey, IsRecordKey(key))
 		return &pb.ResponseDomainCreate{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
@@ -151,15 +151,15 @@ func (r *RPCServer) DomainCreate(ctx context.Context, in *pb.RequestDomainCreate
 
 	if !utils.IsOkDomain(in.Domain) {
 		return &pb.ResponseDomainCreate{
-			ErrCode: models.ErrParams,
-			ErrMsg:  utils.ErrCode[models.ErrParams] + ": domain error",
+			ErrCode: nserr.ErrParams,
+			ErrMsg:  utils.ErrCode[nserr.ErrParams] + ": domain error",
 		}, nil
 	}
 
 	if in.Domain == "" {
 		return &pb.ResponseDomainCreate{
-			ErrCode: models.ErrParams,
-			ErrMsg:  utils.ErrCode[models.ErrParams] + ": miss domain",
+			ErrCode: nserr.ErrParams,
+			ErrMsg:  utils.ErrCode[nserr.ErrParams] + ": miss domain",
 		}, nil
 	}
 
@@ -170,14 +170,14 @@ func (r *RPCServer) DomainCreate(ctx context.Context, in *pb.RequestDomainCreate
 		if err == scanner.ErrEmptyResult {
 			utils.Errorf("[DomainCreate-PD-notfind] key: %v,ok: %v", in.ApiKey, ok)
 			return &pb.ResponseDomainCreate{
-				ErrCode: models.ErrPermissionDenied,
-				ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+				ErrCode: nserr.ErrPermissionDenied,
+				ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 			}, nil
 		}
 		utils.Error("get auth error:", err)
 		return &pb.ResponseDomainCreate{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 
@@ -186,14 +186,14 @@ func (r *RPCServer) DomainCreate(ctx context.Context, in *pb.RequestDomainCreate
 	if err != nil {
 		if err == dns.ErrDomainHasExist {
 			return &pb.ResponseDomainCreate{
-				ErrCode: models.ErrDomainExist,
-				ErrMsg:  utils.ErrCode[models.ErrDomainExist],
+				ErrCode: nserr.ErrDomainExist,
+				ErrMsg:  utils.ErrCode[nserr.ErrDomainExist],
 			}, nil
 		}
 		utils.Error("create dns error:", err)
 		return &pb.ResponseDomainCreate{
-			ErrCode: models.ErrDNSSDK,
-			ErrMsg:  utils.ErrCode[models.ErrDNSSDK],
+			ErrCode: nserr.ErrDNSSDK,
+			ErrMsg:  utils.ErrCode[nserr.ErrDNSSDK],
 		}, nil
 	}
 
@@ -208,8 +208,8 @@ func (r *RPCServer) DomainCreate(ctx context.Context, in *pb.RequestDomainCreate
 	if err != nil {
 		utils.Error("type error:", err)
 		return &pb.ResponseDomainCreate{
-			ErrCode: models.ErrDNSSDK,
-			ErrMsg:  utils.ErrCode[models.ErrDNSSDK],
+			ErrCode: nserr.ErrDNSSDK,
+			ErrMsg:  utils.ErrCode[nserr.ErrDNSSDK],
 		}, nil
 	}
 
@@ -228,8 +228,8 @@ func (r *RPCServer) DomainDelete(ctx context.Context, in *pb.RequestDomainDelete
 		utils.Errorf("[DomainDelete-PD] key: %v,ok: %v,rpcKey: %v, isRecordKey: %v", key, ok, in.ApiKey, IsRecordKey(key))
 		// utils.Errorf("[DomainDelete-PD] key: %v,ok: %v", in.ApiKey, ok)
 		return &pb.ResponseDomainDelete{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
@@ -240,14 +240,14 @@ func (r *RPCServer) DomainDelete(ctx context.Context, in *pb.RequestDomainDelete
 	if err != nil {
 		if err == scanner.ErrEmptyResult {
 			return &pb.ResponseDomainDelete{
-				ErrCode: models.ErrDomainNotFound,
-				ErrMsg:  utils.ErrCode[models.ErrDomainNotFound],
+				ErrCode: nserr.ErrDomainNotFound,
+				ErrMsg:  utils.ErrCode[nserr.ErrDomainNotFound],
 			}, nil
 		}
 		utils.Errorf("get domain by id: %d error: %v", id, err)
 		return &pb.ResponseDomainDelete{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 
@@ -255,8 +255,8 @@ func (r *RPCServer) DomainDelete(ctx context.Context, in *pb.RequestDomainDelete
 	if m.DomainKey != key {
 		utils.Errorf("[DomainDelete-PD] key: %v,DomainKey: %v", key, m.DomainKey)
 		return &pb.ResponseDomainDelete{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
@@ -265,8 +265,8 @@ func (r *RPCServer) DomainDelete(ctx context.Context, in *pb.RequestDomainDelete
 	if err != nil {
 		utils.Errorf("delete domain by id: %d,domainid: %d, error: %v", id, m.FoneDomainID, err)
 		return &pb.ResponseDomainDelete{
-			ErrCode: models.ErrDNSSDK,
-			ErrMsg:  utils.ErrCode[models.ErrDNSSDK],
+			ErrCode: nserr.ErrDNSSDK,
+			ErrMsg:  utils.ErrCode[nserr.ErrDNSSDK],
 		}, nil
 	}
 
@@ -287,8 +287,8 @@ func (r *RPCServer) DomainStatus(ctx context.Context, in *pb.RequestDomainStatus
 		utils.Errorf("[DomainStatus-PD] key: %v,ok: %v,rpcKey: %v, isRecordKey: %v", key, ok, in.ApiKey, IsRecordKey(key))
 		// utils.Errorf("[DomainStatus-PD] key: %v,ok: %v", in.ApiKey, ok)
 		return &pb.ResponseDomainStatus{
-			ErrCode: models.ErrPermissionDenied,
-			ErrMsg:  utils.ErrCode[models.ErrPermissionDenied],
+			ErrCode: nserr.ErrPermissionDenied,
+			ErrMsg:  utils.ErrCode[nserr.ErrPermissionDenied],
 		}, nil
 	}
 
@@ -307,14 +307,14 @@ func (r *RPCServer) DomainStatus(ctx context.Context, in *pb.RequestDomainStatus
 	if err != nil {
 		if err == scanner.ErrEmptyResult {
 			return &pb.ResponseDomainStatus{
-				ErrCode: models.ErrDomainNotFound,
-				ErrMsg:  utils.ErrCode[models.ErrDomainNotFound],
+				ErrCode: nserr.ErrDomainNotFound,
+				ErrMsg:  utils.ErrCode[nserr.ErrDomainNotFound],
 			}, nil
 		}
 		utils.Errorf("get domain by id: %s error: %v", key, err)
 		return &pb.ResponseDomainStatus{
-			ErrCode: models.ErrDB,
-			ErrMsg:  utils.ErrCode[models.ErrDB],
+			ErrCode: nserr.ErrDB,
+			ErrMsg:  utils.ErrCode[nserr.ErrDB],
 		}, nil
 	}
 
@@ -323,8 +323,8 @@ func (r *RPCServer) DomainStatus(ctx context.Context, in *pb.RequestDomainStatus
 		if strings.Contains(err.Error(), "i/o timeout") {
 			utils.Debugf("get ns timeout:%v", err)
 			return &pb.ResponseDomainStatus{
-				// ErrCode: models.ErrDNSSDK,
-				// ErrMsg:  utils.ErrCode[models.ErrDNSSDK],
+				// ErrCode: nserr.ErrDNSSDK,
+				// ErrMsg:  utils.ErrCode[nserr.ErrDNSSDK],
 				Data: &pb.TakeOver{
 					IsTakeOver: int32(0),
 				},
@@ -332,8 +332,8 @@ func (r *RPCServer) DomainStatus(ctx context.Context, in *pb.RequestDomainStatus
 		}
 		utils.Error("get ns error:", err)
 		return &pb.ResponseDomainStatus{
-			ErrCode: models.ErrDNSSDK,
-			ErrMsg:  utils.ErrCode[models.ErrDNSSDK],
+			ErrCode: nserr.ErrDNSSDK,
+			ErrMsg:  utils.ErrCode[nserr.ErrDNSSDK],
 		}, nil
 	}
 
@@ -365,8 +365,8 @@ func (r *RPCServer) DomainStatus(ctx context.Context, in *pb.RequestDomainStatus
 		if err != nil {
 			utils.Error("update domain error:", m.ID, update, err)
 			return &pb.ResponseDomainStatus{
-				ErrCode: models.ErrDB,
-				ErrMsg:  utils.ErrCode[models.ErrDB],
+				ErrCode: nserr.ErrDB,
+				ErrMsg:  utils.ErrCode[nserr.ErrDB],
 			}, nil
 		}
 	}

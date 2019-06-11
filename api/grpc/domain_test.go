@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/solution9th/NSBridge/utils"
-
 	pb "github.com/solution9th/NSBridge/dns_pb"
+	"github.com/solution9th/NSBridge/internal/utils"
 )
 
 var (

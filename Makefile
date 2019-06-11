@@ -4,14 +4,14 @@ GOOS?=linux
 GOARCH?=amd64
 GO_VERSION?=1.12.1
 
-PROJECT?=gitlab.zlibs.com/${APP}
+PROJECT?=github.com/solution9th/NSBridge/${APP}
 VERSION?=$(shell git describe --tags --always)
 
 
 default: build
 
 .PHONY: build
-build: clean
+build: clean govet swagger
 	CGO_ENABLED=0 GOOS=${GOOS} GOARCH=${GOARCH} go build -ldflags "-s -w -X ${PROJECT}/app.version=${VERSION} -X '${PROJECT}/app.buildDate=`date`' " -o ${APP}
 
 .PHONY: build-local
@@ -19,12 +19,12 @@ build-local: clean agent govet swagger build
 
 .PHONY: .govet
 govet: 
-	go vet . && go fmt ./... && \
+	@ go vet . && go fmt ./... && \
 	(if [[ "$(gofmt -d $(find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./tests/*" -not -path "./assets/*"))" == "" ]]; then echo "Good format"; else echo "Bad format"; exit 33; fi);
 
 .PHONY: .out
 out: 
-	protoc -I/usr/local/include -I. \
+	@ protoc -I/usr/local/include -I. \
 		-I ${GOPATH}/src \
 		-I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 		--go_out=plugins=grpc:. \
@@ -32,7 +32,7 @@ out:
 
 .PHONY: .gateway
 gateway: out
-	protoc -I/usr/local/include -I. \
+	@ protoc -I/usr/local/include -I. \
 		-I  ${GOPATH}/src \
 		-I  ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 		--grpc-gateway_out=logtostderr=true:. \
@@ -40,7 +40,7 @@ gateway: out
 
 .PHONY: .swagger
 swagger: gateway
-	protoc -I/usr/local/include -I. \
+	@ protoc -I/usr/local/include -I. \
 		-I ${GOPATH}/src \
 		-I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 		--swagger_out=logtostderr=true:. \

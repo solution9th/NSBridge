@@ -5,10 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/solution9th/NSBridge/config"
-	"github.com/solution9th/NSBridge/utils"
-
 	pb "github.com/solution9th/NSBridge/dns_pb"
+	"github.com/solution9th/NSBridge/internal/config"
+	"github.com/solution9th/NSBridge/internal/utils"
 )
 
 func MFInit(t *testing.T) {

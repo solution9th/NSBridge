@@ -4,13 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	ggrpc "github.com/solution9th/NSBridge/api/grpc"
 	pb "github.com/solution9th/NSBridge/dns_pb"
+	"github.com/solution9th/NSBridge/internal/config"
+	"github.com/solution9th/NSBridge/internal/utils"
 
-	"github.com/solution9th/NSBridge/config"
-	"github.com/solution9th/NSBridge/utils"
-
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -50,9 +49,6 @@ func runGateway() (*runtime.ServeMux, error) {
 		utils.Error("[grpc gateway] error:", err)
 		return nil, err
 	}
-
-	// port := 8080
-	// return http.ListenAndServe(fmt.Sprintf(":%d", port), mux)
 
 	return mux, nil
 }

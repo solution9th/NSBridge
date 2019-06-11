@@ -3,12 +3,11 @@ package app
 import (
 	"sync"
 
-	"github.com/solution9th/NSBridge/oneapm"
-
-	"github.com/solution9th/NSBridge/config"
-	"github.com/solution9th/NSBridge/service/cache"
-	"github.com/solution9th/NSBridge/service/mysql"
-	"github.com/solution9th/NSBridge/utils"
+	"github.com/solution9th/NSBridge/internal/config"
+	"github.com/solution9th/NSBridge/internal/oneapm"
+	"github.com/solution9th/NSBridge/internal/service/cache"
+	"github.com/solution9th/NSBridge/internal/service/mysql"
+	"github.com/solution9th/NSBridge/internal/utils"
 )
 
 // Run run app

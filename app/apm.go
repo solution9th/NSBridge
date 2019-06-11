@@ -3,7 +3,7 @@ package app
 import (
 	"go-agent/blueware"
 
-	"github.com/solution9th/NSBridge/utils"
+	"github.com/solution9th/NSBridge/internal/utils"
 )
 
 func runOneAPM() (blueware.Application, error) {

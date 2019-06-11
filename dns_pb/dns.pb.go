@@ -1147,7 +1147,7 @@ func (m *RequestOwnDomainsList) GetCount() uint64 {
 }
 
 type ResponseDomainList struct {
-	ErrCode              int32           `protobuf:"varint,1,opt,name=err_code,json=errCode,proto3" json:"err_code"`
+	ErrCode              int32           `protobuf:"varint,1,opt,name=err_code,json=errCode,proto3" json:"err_code,omitempty"`
 	ErrMsg               string          `protobuf:"bytes,2,opt,name=err_msg,json=errMsg,proto3" json:"err_msg,omitempty"`
 	Data                 *DomainListData `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}        `json:"-"`

@@ -6,8 +6,9 @@ import (
 	"net/textproto"
 	"strings"
 
-	"github.com/solution9th/NSBridge/dns"
-	"github.com/solution9th/NSBridge/utils"
+	"github.com/solution9th/NSBridge/internal/dns"
+	"github.com/solution9th/NSBridge/internal/utils"
+
 	"google.golang.org/genproto/googleapis/api/httpbody"
 	"google.golang.org/grpc/metadata"
 )

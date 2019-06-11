@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"net"
 
-	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
-	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	ggrpc "github.com/solution9th/NSBridge/api/grpc"
 	pb "github.com/solution9th/NSBridge/dns_pb"
-	"github.com/solution9th/NSBridge/oneapm"
+	"github.com/solution9th/NSBridge/internal/oneapm"
 
-	"github.com/solution9th/NSBridge/config"
-	"github.com/solution9th/NSBridge/utils"
+	"github.com/solution9th/NSBridge/internal/config"
+	"github.com/solution9th/NSBridge/internal/utils"
 
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )

@@ -1,6 +1,6 @@
 # NSBridge
 
-![image](https://img.shields.io/badge/build-passing-brightgreen.svg)&nbsp;&nbsp;![image](https://img.shields.io/badge/golang-1.9+-green.svg)&nbsp;&nbsp;![image](https://img.shields.io/badge/license-MIT-blue.svg)&nbsp;&nbsp;[![GoDoc](https://godoc.org/github.com/solution9th/NSBridge?status.svg)](https://godoc.org/github.com/solution9th/NSBridge)&nbsp;&nbsp;[![Go Report Card](https://goreportcard.com/badge/github.com/solution9th/NSBridge)](https://goreportcard.com/report/github.com/solution9th/NSBridge)
+![image](https://img.shields.io/badge/build-passing-brightgreen.svg)&nbsp;&nbsp;[![GoDoc](https://godoc.org/github.com/solution9th/NSBridge?status.svg)](https://godoc.org/github.com/solution9th/NSBridge)&nbsp;&nbsp;![image](https://img.shields.io/badge/golang-1.9+-green.svg)&nbsp;&nbsp;[![Go Report Card](https://goreportcard.com/badge/github.com/solution9th/NSBridge)](https://goreportcard.com/report/github.com/solution9th/NSBridge)&nbsp;&nbsp;![image](https://img.shields.io/badge/license-MIT-blue.svg)
 
 NSBridge 是一个桥梁服务，对上提供统一的 Name Server API 服务，对下封装 Bind、DNSPod、CloudXNS、OREdge 等 NS Provider，并集成图形化的 API 赋权、域名管理、日志审计、服务预警等能力。
 
@@ -47,7 +47,6 @@ NSBridge 是一个桥梁服务，对上提供统一的 Name Server API 服务，
 $ go get github.com/solution9th/NSBridge
 ```
 
-
 ### 前端模块
 
 在 `client/api/homeApi.js` 中配置后台的host地址，所有后台接口都在api文件夹中。
@@ -64,14 +63,14 @@ $ npm install --registry=https://registry.npm.taobao.org
 
 NSBridge使用dep来管理依赖的包，请先安装dep, 执行以下命令即完成安装
 
-```
-go get -u github.com/golang/dep/cmd/dep
+```shell
+$ go get -u github.com/golang/dep/cmd/dep
 ```
 
 然后，在 **NSBridge** 项目目录下运行以下命令来安装依赖
 
-```
-dep ensure
+```shell
+$ dep ensure
 ```
 
 ## 配置文件
@@ -81,7 +80,7 @@ dep ensure
 
 ## 证书相关
 
-- 在 `apiweb/certs` 放idp的saml证书
+- 在 `keys/certs` 放idp的saml证书
 - 使用`openssl`生成grpc证书到 `keys/grpc` 目录下
 
 ## oneapm 配置 (可不配置)
@@ -92,6 +91,7 @@ dep ensure
 ## 运行
 
 ### 运行前端项目
+
 进入`NSBridge/website`目录，然后运行
 
 ```shell
@@ -99,9 +99,11 @@ $ npm run dev
 ```
 
 ### 运行后端项目
+
 进入`NSBridge`目录，然后运行
 
 快速运行
+
 ```shell
 $ make build
 $ ./ns_bridge

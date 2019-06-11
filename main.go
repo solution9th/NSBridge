@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/solution9th/NSBridge/app"
-	"github.com/solution9th/NSBridge/utils"
+	"github.com/solution9th/NSBridge/internal/utils"
 )
 
 func main() {

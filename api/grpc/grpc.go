@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/solution9th/NSBridge/utils"
+	"github.com/solution9th/NSBridge/internal/utils"
 )
 
 type RPCServer struct{}

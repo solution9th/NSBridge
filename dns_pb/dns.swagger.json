@@ -106,6 +106,45 @@
         ]
       }
     },
+    "/api/v1/domains/own": {
+      "get": {
+        "summary": "获得授权key下的域名列表",
+        "operationId": "OwnDomainsList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseDomainList"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
     "/api/v1/lines/all": {
       "get": {
         "summary": "查看线路",
@@ -402,6 +441,31 @@
             "schema": {
               "$ref": "#/definitions/dns_pbRequestRecordCreate"
             }
+          }
+        ],
+        "tags": [
+          "DNSServer"
+        ]
+      }
+    },
+    "/api/v1/records/domain": {
+      "get": {
+        "summary": "根据record_key获取domain",
+        "operationId": "RecordDomainOfRK",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dns_pbResponseDomainOfRK"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "record_key",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -748,6 +812,21 @@
         },
         "data": {
           "$ref": "#/definitions/dns_pbDomainListData"
+        }
+      }
+    },
+    "dns_pbResponseDomainOfRK": {
+      "type": "object",
+      "properties": {
+        "err_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "err_msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/dns_pbDomainInfo"
         }
       }
     },

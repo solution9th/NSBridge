@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/solution9th/NSBridge/config"
+	"github.com/solution9th/NSBridge/internal/config"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,26 +19,3 @@ func Ping(c *gin.Context) {
 	c.String(200, "%s", "dns ok")
 	return
 }
-
-// Gin 中间件测试
-// r.GET("/ping", TA(), TB(), Ping)
-// TA
-// TB
-// Ping
-// TB-
-// TA-
-// func TA() gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		fmt.Println("TA")
-// 		c.Next()
-// 		fmt.Println("TA-")
-// 	}
-// }
-
-// func TB() gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		fmt.Println("TB")
-// 		c.Next()
-// 		fmt.Println("TB-")
-// 	}
-// }

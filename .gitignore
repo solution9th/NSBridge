@@ -21,4 +21,5 @@ client/main
 vendor/
 # config.production.yml
 dns.log
+ns_bridge
 # dns_pb/*.go

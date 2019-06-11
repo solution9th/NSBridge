@@ -9,12 +9,12 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/solution9th/NSBridge/oneapm"
+	"github.com/solution9th/NSBridge/api/grpc"
+	"github.com/solution9th/NSBridge/internal/config"
+	"github.com/solution9th/NSBridge/internal/oneapm"
+	"github.com/solution9th/NSBridge/internal/utils"
 
 	"github.com/gin-gonic/gin"
-	"github.com/solution9th/NSBridge/api/grpc"
-	"github.com/solution9th/NSBridge/config"
-	"github.com/solution9th/NSBridge/utils"
 )
 
 func runWeb() error {
